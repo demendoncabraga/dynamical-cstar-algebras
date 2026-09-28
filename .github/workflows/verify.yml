@@ -1,0 +1,32 @@
+name: Verify manuscript
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: verify-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    steps:
+      - name: Check out source
+        # https://github.com/actions/checkout/releases/tag/v6.0.2
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
+      - name: Test audit checks
+        run: python3 scripts/test_audit.py
+      - name: Install pinned toolchain and build
+        run: sh scripts/setup.sh
+      - name: Check complete coverage, dependencies, and axioms
+        run: sh scripts/audit.sh --terminal
+      - name: Check that verification preserves the source
+        run: git diff --exit-code

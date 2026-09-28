@@ -1,0 +1,24 @@
+import DynamicalCStarAlgebras.CayleyGrowth
+import DynamicalCStarAlgebras.DiscontinuousPreflow
+import DynamicalCStarAlgebras.EntourageOscillation
+import DynamicalCStarAlgebras.FejerTail
+import DynamicalCStarAlgebras.GenericAnalyticOrbits
+import DynamicalCStarAlgebras.HeightBandClaim
+import DynamicalCStarAlgebras.IteratedCommutatorDefinition
+import DynamicalCStarAlgebras.MetricDecayTransforms
+import DynamicalCStarAlgebras.MetricPropagation
+import DynamicalCStarAlgebras.NonmetrizableExample
+import DynamicalCStarAlgebras.PropertyAEquality
+import DynamicalCStarAlgebras.RegularityAlgebras
+import DynamicalCStarAlgebras.RoeCountability
+import DynamicalCStarAlgebras.SingletonGrowthCounterexample
+import DynamicalCStarAlgebras.StripDefinitions
+import DynamicalCStarAlgebras.VolumeEstimate
+
+/-!
+# Dynamical C*-algebras and coarse geometry
+
+Library entry point. The imports above expose the full project through their
+transitive dependencies. See README.md for Theorems A–E and coverage.json for
+the complete manuscript correspondence.
+-/
