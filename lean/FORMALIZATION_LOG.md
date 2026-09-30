@@ -15,7 +15,7 @@ axioms. Cited proof dependencies are supplied by Mathlib or proved in the projec
 Lean/Mathlib remain pinned to v4.33.1.
 
 Reviewed manuscript SHA256:
-`2afdc5e2011fb9f96e73b4c9125c5f9a7e32cd3e122678d6221dc31082f1eab9`.
+`c9b6926f5d053ee24f2755f94015d9de77094bcc1b47e32ea21a655382f0f699`.
 
 ## Revised Theorem B and graph embedding
 
@@ -35,10 +35,12 @@ from final Theorem B to keep imports acyclic; made the coordinate-embedding impo
 explicit in HaarFrameSubspaces. Refreshed source locations, manuscript roots,
 citation review, README and the requested definitions reading extract.
 
-The manuscript was preserved exactly as supplied. The source review records the
-global coarse-height convention and the injective-image interpretation of the
-growth reduction. Suggested prose clarifications have not been applied without
-author approval. See `docs/SOURCE_COVERAGE_REVIEW.md` for the precise correspondence.
+After the author explicitly approved the wording corrections, the introduction
+was changed to quantify over coarse real maps, and the growth reduction now uses
+the injective embedding's image and a pullback metric with the same coarse
+structure. The Lean statements and proofs already establish this precise
+argument and required no changes. The source fingerprint and review were updated.
+See `docs/SOURCE_COVERAGE_REVIEW.md` for the correspondence.
 
 Validation passed: full library build, all 17 audit regression tests, ordinary
 axiom audit and terminal audit. The terminal check verifies the source fingerprint,

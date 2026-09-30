@@ -140,7 +140,7 @@ is admitted. Mathematical correspondence is reviewed separately in
 Latest validation (2026-09-29): the full build, all 17 audit regression tests,
 ordinary audit and terminal audit pass. All 1,328 inventory entries are verified;
 1,288 source declarations in 194 modules support 136 manuscript roots. The
-reviewed source SHA256 is `2afdc5e2011fb9f96e73b4c9125c5f9a7e32cd3e122678d6221dc31082f1eab9`.
+reviewed source SHA256 is `c9b6926f5d053ee24f2755f94015d9de77094bcc1b47e32ea21a655382f0f699`.
 The audit verifies dependency closure and permitted axioms. The previous public
 version additionally passed a separate source-only rebuild; for this revision,
 Lake rebuilt the changed modules and affected dependents in the working checkout.

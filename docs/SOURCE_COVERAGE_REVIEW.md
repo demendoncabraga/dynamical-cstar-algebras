@@ -273,12 +273,12 @@ exponential growth on the same set, with exactly the original coarse structure.
 This establishes the growth reduction without asserting invariance of concrete
 operator algebras under arbitrary nonbijective coarse equivalence.
 
-The introduction's reference to “all h” is read under the paper's explicit global
-convention (Section 2.1) that real-valued maps are coarse, consistently with
-Theorem `thm:roeentire`. The proof of Theorem B is implemented using the injective
-embedding's image. Suggested wording clarifications were sent to the author;
-the manuscript itself has not been edited for this update. These interpretations
-are recorded explicitly, rather than strengthening either formal statement.
+The author approved two precise manuscript corrections on 2026-09-29. The
+introduction now explicitly quantifies over coarse real maps. The proof of
+Theorem B now uses an injective embedding, its image with the restricted graph
+metric, and the pullback metric on X with exactly the same coarse structure.
+These corrections agree with the existing checked statements and require no
+changes to Lean proofs.
 
 The positive prose obligations are now checked: `analyticOrbitSubalgebra_dense`
 proves general-flow analytic density for nonunital C*-algebras;
@@ -334,4 +334,4 @@ all 1,288 source declarations in 194 modules support the 136 manuscript roots.
 Only `propext`, `Classical.choice` and `Quot.sound` occur as foundational axioms;
 there are no project axioms or proof placeholders.
 
-Reviewed manuscript SHA256: `2afdc5e2011fb9f96e73b4c9125c5f9a7e32cd3e122678d6221dc31082f1eab9`.
+Reviewed manuscript SHA256: `c9b6926f5d053ee24f2755f94015d9de77094bcc1b47e32ea21a655382f0f699`.

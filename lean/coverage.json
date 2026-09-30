@@ -1,6 +1,6 @@
 {
   "source": "paper/main.tex",
-  "source_sha256": "2afdc5e2011fb9f96e73b4c9125c5f9a7e32cd3e122678d6221dc31082f1eab9",
+  "source_sha256": "c9b6926f5d053ee24f2755f94015d9de77094bcc1b47e32ea21a655382f0f699",
   "project_module": "DynamicalCStarAlgebras",
   "inventory_complete": true,
   "verification_scope": "unconditional",
@@ -11106,5 +11106,5 @@
       "declaration": "DynamicalCStarAlgebras.uniformRoe_eq_entireAnalyticPoints"
     }
   ],
-  "inventory_notes": "Reviewed all 62 mathematical statement environments, all 35 citation occurrences, and mathematical prose/definitions in the revised manuscript. Questions and conjectures are not asserted as results. The global convention that heights are coarse applies to the introduction. The growth reduction is proved with an injective embedding and a same-set metric with exactly equal coarse structures; arbitrary coarse equivalence of concrete operator algebras is not assumed."
+  "inventory_notes": "Reviewed all 62 mathematical statement environments, all 35 citation occurrences, and mathematical prose/definitions in the revised manuscript. Questions and conjectures are not asserted as results. The author-approved introduction now explicitly quantifies over coarse maps. The growth reduction is proved with an injective embedding and a same-set metric with exactly equal coarse structures; the author-approved proof text now states this precise reduction, without assuming invariance under arbitrary coarse equivalence."
 }

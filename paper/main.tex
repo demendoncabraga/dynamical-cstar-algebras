@@ -278,7 +278,7 @@ Let $X$ be a u.l.f.\ metric space. Then
 
 In words: an operator is quasi-local if and only if it moves continuously under
 every diagonal flow, and it belongs to the uniform Roe algebra if and only if it is a norm limit of operators that
-move analytically  under every diagonal flow.  We show that an operator has finite propagation if and only if it is analytic for $\sigma_h$ for all $h\colon X\to \R$ and, moreover, this analyticity is \emph{of exponential type}; we refer to Definitions \ref{Def.BandAnalytic.functions} and Theorem \ref{thm:roeentire} for details.  
+move analytically  under every diagonal flow.  We show that an operator has finite propagation if and only if it is analytic for $\sigma_h$ for all coarse maps $h\colon X\to \R$ and, moreover, this analyticity is \emph{of exponential type}; we refer to Definitions \ref{Def.BandAnalytic.functions} and Theorem \ref{thm:roeentire} for details.  
 
 Theorem \ref{thmB} places $\mathrm{C}^*_u(X)$ and $\mathrm{C}^*_{ql}(X)$ at the
  end points of a scale of regularity conditions, and one may now ask what the
@@ -1151,7 +1151,7 @@ for all $k\in\N$; contradiction.
 The inclusion ``$\subseteq$''  is immediate from Theorem \ref{thm:roeentire}.
 
 
- Let us show the inclusion ``$\supseteq$''  also holds. Firstly, by Proposition \ref{DranishnikovGongLafforgueYu2002CanMathJ.11}, $X$ is coarsely equivalent to a u.l.f.\ metric space which grows at most exponentially. As $\mathrm{AP}(X)$ depends only on the coarse type of $X$, we can then assume that $X$ grows at most exponentially. So, pick $\lambda>1$ such that $N_X(m)\leq \lambda^m$ for all $m\in\N$. Let now $a\in \cB(\ell_2(X))$ be analytic for $\sigma_h$ for all coarse maps $h\colon X\to \R$. By Lemma \ref{lem:allrates} applied to $c=\log(\lambda)+1$, we obtain that
+ Let us show the inclusion ``$\supseteq$''  also holds. Firstly, choose an injective coarse embedding of $X$ into a connected graph of degree at most three, as in Proposition \ref{DranishnikovGongLafforgueYu2002CanMathJ.11}. Its image, equipped with the restricted graph metric, is bijectively coarsely equivalent to $X$ and grows at most exponentially. Pulling this metric back to $X$ gives a metric with the same coarse structure and at most exponential growth. Since both $\cstu(X)$ and $\mathrm{AP}(X)$ depend only on this coarse structure, we can therefore assume that $X$ grows at most exponentially. So, pick $\lambda>1$ such that $N_X(m)\leq \lambda^m$ for all $m\in\N$. Let now $a\in \cB(\ell_2(X))$ be analytic for $\sigma_h$ for all coarse maps $h\colon X\to \R$. By Lemma \ref{lem:allrates} applied to $c=\log(\lambda)+1$, we obtain that
  \[C=\sup_{x,y\in X}e^{cd(x,y)}{|\langle a\delta_y,\delta_x\rangle|}<\infty.\]
 Letting $\eta_a(m)$ be as in Lemma \ref{lem:volume}  for each $m\in\N\cup\{0\}$, this implies that  \[\eta_a(m)\leq Ce^{-cm}\ \text{ for all }\ m\in\N.\]
 By our choice of $c$, this implies that
