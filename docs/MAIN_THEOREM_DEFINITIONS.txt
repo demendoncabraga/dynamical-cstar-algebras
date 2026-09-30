@@ -1,0 +1,488 @@
+DEFINITIONS USED IN THEOREMS A-E
+Dynamical C*-algebras and coarse geometry
+
+Scope: the first definition table in the correspondence-review reading list.
+Includes the auxiliary definitions needed to read those entries, such as
+BoundedVariation, coordinateSubspace, and compressionNorms. Definitions from
+the separate list of additional manuscript topics are not included.
+
+This is a UTF-8 reading extract, not a standalone Lean module. Every declaration
+body below is copied verbatim from the project source, including structure
+fields and proof terms occurring inside definitions. Supporting theorem proofs
+and imported Mathlib declarations are not reproduced. Source locations identify
+the original declarations; all names are in namespace DynamicalCStarAlgebras.
+
+Shared context used by the source modules includes:
+  universe u
+  noncomputable section
+  namespace DynamicalCStarAlgebras
+  open Filter
+  open scoped ENNReal
+
+The sources import Mathlib and project dependencies. In particular, closure and
+Continuous use the norm topology of Operator X; Differentiable over complex
+scalars expresses complex differentiability; infinity in BoundedMatrixProduct
+is the lp exponent. Refer to the original imports when resolving notation.
+
+CONTENTS
+01. Coarse structures, coarse maps, metric coarse structure, and d_h
+02. Complex l2, bounded operators, support, propagation, and uniform Roe algebra
+03. Coordinate projections and quasi-locality
+04. Diagonal unitaries and the diagonal pre-flow
+05. Continuity points for one height
+06. Common coarse continuity points: CP(X)
+07. Uniform local finiteness of a metric space
+08. Entire analyticity and entire exponential type
+09. Common exponential-type analytic algebra: AP_exp(X)
+10. Exponential growth and common entire analytic algebra: AP(X)
+11. Analytic extension to a closed strip
+12. Common strip-analytic algebra: AP_strip(X)
+13. Quasi-locality modulus
+14. Polynomial decay and QL_alpha(X)
+15. Exponential decay and QL_exp(X)
+16. Coarse graph unions: the hypothesis of Theorem E
+17. Expander graph unions: the hypothesis of Theorems C and D
+18. Vertex boundary and expansion
+19. Bounded product of matrix algebras
+
+==============================================================================
+01. Coarse structures, coarse maps, metric coarse structure, and d_h
+==============================================================================
+
+Declaration: DynamicalCStarAlgebras.CoarseStructure
+Source: lean/DynamicalCStarAlgebras/Coarse.lean:12
+
+/-- The five entourage axioms from Section 2.1; no connectedness is imposed. -/
+structure CoarseStructure (X : Type u) where
+  controlled : Set (Set (X × X))
+  diagonal : {p | p.1 = p.2} ∈ controlled
+  subset : ∀ {E F}, E ⊆ F → F ∈ controlled → E ∈ controlled
+  union : ∀ {E F}, E ∈ controlled → F ∈ controlled → E ∪ F ∈ controlled
+  inverse : ∀ {E}, E ∈ controlled → {p | (p.2, p.1) ∈ E} ∈ controlled
+  comp : ∀ {E F}, E ∈ controlled → F ∈ controlled →
+    {p | ∃ z, (p.1, z) ∈ E ∧ (z, p.2) ∈ F} ∈ controlled
+
+Declaration: DynamicalCStarAlgebras.BoundedVariation
+Source: lean/DynamicalCStarAlgebras/Coarse.lean:22
+
+/-- Finite oscillation on an entourage, expressed without an unbounded real supremum. -/
+def BoundedVariation {X : Type u} (h : X → ℝ) (E : Set (X × X)) : Prop :=
+  ∃ R : ℝ, ∀ p ∈ E, dist (h p.1) (h p.2) ≤ R
+
+Declaration: DynamicalCStarAlgebras.IsCoarseReal
+Source: lean/DynamicalCStarAlgebras/Coarse.lean:26
+
+/-- The manuscript's coarse maps into the usual real line. -/
+def IsCoarseReal {X : Type u} (C : CoarseStructure X) (h : X → ℝ) : Prop :=
+  ∀ E ∈ C.controlled, BoundedVariation h E
+
+Declaration: DynamicalCStarAlgebras.IsCoarseMap
+Source: lean/DynamicalCStarAlgebras/Coarse.lean:108
+
+/-- Coarse maps send every controlled relation to a controlled relation (Section 2.1). -/
+def IsCoarseMap {X : Type u} {Y : Type*} (C : CoarseStructure X)
+    (D : CoarseStructure Y) (f : X → Y) : Prop :=
+  ∀ E ∈ C.controlled, (fun p : X × X => (f p.1, f p.2)) '' E ∈ D.controlled
+
+Declaration: DynamicalCStarAlgebras.CoarseStructure.ofPseudoMetric
+Source: lean/DynamicalCStarAlgebras/Coarse.lean:82
+
+/-- The bounded-distance coarse structure of a pseudometric space (Section 2.1). -/
+def CoarseStructure.ofPseudoMetric (X : Type u) [PseudoMetricSpace X] :
+    CoarseStructure X where
+  controlled := {E | ∃ R : ℝ, ∀ p ∈ E, dist p.1 p.2 ≤ R}
+  diagonal := ⟨0, fun p hp => le_of_eq
+    ((congrArg (fun x => dist x p.2) hp).trans (dist_self p.2))⟩
+  subset hEF hF := hF.imp fun _ hR p hp => hR p (hEF hp)
+  union hE hF := hE.elim fun R hR => hF.elim fun S hS =>
+    ⟨max R S, fun p hp => hp.elim
+      (fun he => (hR p he).trans (le_max_left R S))
+      (fun hf => (hS p hf).trans (le_max_right R S))⟩
+  inverse hE := hE.imp fun _ hR p hp => (dist_comm p.1 p.2) ▸ hR (p.2, p.1) hp
+  comp hE hF := hE.elim fun R hR => hF.elim fun S hS =>
+    ⟨R + S, fun p hp => hp.elim fun z hz =>
+      (dist_triangle p.1 z p.2).trans
+        (add_le_add (hR (p.1, z) hz.1) (hS (z, p.2) hz.2))⟩
+
+Declaration: DynamicalCStarAlgebras.realPullbackPseudoMetric
+Source: lean/DynamicalCStarAlgebras/Coarse.lean:99
+
+/-- The pseudometric induced by an arbitrary real-valued map, with no injectivity. -/
+abbrev realPullbackPseudoMetric {X : Type u} (h : X → ℝ) : PseudoMetricSpace X :=
+  PseudoMetricSpace.induced h inferInstance
+
+==============================================================================
+02. Complex l2, bounded operators, support, propagation, and uniform Roe algebra
+==============================================================================
+
+Declaration: DynamicalCStarAlgebras.HilbertSpace
+Source: lean/DynamicalCStarAlgebras/OperatorSupport.lean:14
+
+/-- Square-summable complex families on an arbitrary set. -/
+abbrev HilbertSpace (X : Type u) := lp (fun _ : X => ℂ) 2
+
+Declaration: DynamicalCStarAlgebras.Operator
+Source: lean/DynamicalCStarAlgebras/OperatorSupport.lean:17
+
+/-- Bounded complex-linear operators, equipped with the operator norm. -/
+abbrev Operator (X : Type u) := HilbertSpace X →L[ℂ] HilbertSpace X
+
+Declaration: DynamicalCStarAlgebras.delta
+Source: lean/DynamicalCStarAlgebras/OperatorSupport.lean:20
+
+/-- The canonical unit vector. -/
+def delta {X : Type u} (x : X) : HilbertSpace X :=
+  @lp.single X (fun _ => ℂ) _ (Classical.decEq X) 2 x 1
+
+Declaration: DynamicalCStarAlgebras.matrixEntry
+Source: lean/DynamicalCStarAlgebras/OperatorSupport.lean:24
+
+/-- Matrix coefficients use output coordinates, matching the paper's linear-first convention. -/
+def matrixEntry {X : Type u} (a : Operator X) (x y : X) : ℂ := a (delta y) x
+
+Declaration: DynamicalCStarAlgebras.operatorSupport
+Source: lean/DynamicalCStarAlgebras/OperatorSupport.lean:32
+
+/-- Section 2.2: the set of nonzero matrix coefficients. -/
+def operatorSupport {X : Type u} (a : Operator X) : Set (X × X) :=
+  {p | matrixEntry a p.1 p.2 ≠ 0}
+
+Declaration: DynamicalCStarAlgebras.HasControlledPropagation
+Source: lean/DynamicalCStarAlgebras/OperatorSupport.lean:36
+
+/-- Controlled propagation for an arbitrary coarse structure. -/
+def HasControlledPropagation {X : Type u} (C : CoarseStructure X) (a : Operator X) :
+    Prop := operatorSupport a ∈ C.controlled
+
+Declaration: DynamicalCStarAlgebras.HasFinitePropagation
+Source: lean/DynamicalCStarAlgebras/OperatorSupport.lean:40
+
+/-- The positive-radius finite-propagation definition from the introduction. -/
+def HasFinitePropagation {X : Type u} [PseudoMetricSpace X] (a : Operator X) : Prop :=
+  ∃ R : ℝ, 0 < R ∧ ∀ x y, R < dist x y → matrixEntry a x y = 0
+
+Declaration: DynamicalCStarAlgebras.uniformRoe
+Source: lean/DynamicalCStarAlgebras/OperatorSupport.lean:58
+
+/-- The defining norm closure of the uniform Roe algebra in Section 2.2.
+Its C*-subalgebra properties are separate proof obligations. -/
+def uniformRoe {X : Type u} (C : CoarseStructure X) : Set (Operator X) :=
+  closure {a | HasControlledPropagation C a}
+
+==============================================================================
+03. Coordinate projections and quasi-locality
+==============================================================================
+
+Declaration: DynamicalCStarAlgebras.coordinateSubspace
+Source: lean/DynamicalCStarAlgebras/QuasiLocal.lean:12
+
+/-- The closed subspace of complex l2 families supported on A. -/
+def coordinateSubspace {X : Type u} (A : Set X) : ClosedSubmodule ℂ (HilbertSpace X) :=
+  ⨅ x : {x // x ∉ A}, (⊥ : ClosedSubmodule ℂ ℂ).comap
+    (lp.evalCLM ℂ (fun _ : X => ℂ) 2 x.1)
+
+Declaration: DynamicalCStarAlgebras.coordinateProjection
+Source: lean/DynamicalCStarAlgebras/QuasiLocal.lean:23
+
+/-- The orthogonal projection chi_A of the manuscript. -/
+def coordinateProjection {X : Type u} (A : Set X) : Operator X :=
+  (coordinateSubspace A).toSubmodule.starProjection
+
+Declaration: DynamicalCStarAlgebras.IsQuasiLocalAt
+Source: lean/DynamicalCStarAlgebras/QuasiLocal.lean:46
+
+/-- Section 2.2: (epsilon,E)-quasi-locality. -/
+def IsQuasiLocalAt {X : Type u} (a : Operator X) (ε : ℝ) (E : Set (X × X)) : Prop :=
+  ∀ A B : Set X, Disjoint (A ×ˢ B) E →
+    ‖coordinateProjection A * a * coordinateProjection B‖ ≤ ε
+
+Declaration: DynamicalCStarAlgebras.IsQuasiLocal
+Source: lean/DynamicalCStarAlgebras/QuasiLocal.lean:51
+
+/-- Section 2.2: quasi-locality for an arbitrary coarse space. -/
+def IsQuasiLocal {X : Type u} (C : CoarseStructure X) (a : Operator X) : Prop :=
+  ∀ ε : ℝ, 0 < ε → ∃ E ∈ C.controlled, IsQuasiLocalAt a ε E
+
+Declaration: DynamicalCStarAlgebras.quasiLocal
+Source: lean/DynamicalCStarAlgebras/QuasiLocal.lean:55
+
+/-- The underlying set of the quasi-local algebra; algebra properties are separate obligations. -/
+def quasiLocal {X : Type u} (C : CoarseStructure X) : Set (Operator X) :=
+  {a | IsQuasiLocal C a}
+
+==============================================================================
+04. Diagonal unitaries and the diagonal pre-flow
+==============================================================================
+
+Declaration: DynamicalCStarAlgebras.diagonalPhase
+Source: lean/DynamicalCStarAlgebras/DiagonalFlow.lean:10
+
+/-- The diagonal phase at time t. No boundedness assumption on h is needed. -/
+def diagonalPhase {X : Type u} (h : X → ℝ) (t : ℝ) (x : X) : ℂ :=
+  Complex.exp (((t * h x : ℝ) : ℂ) * Complex.I)
+
+Declaration: DynamicalCStarAlgebras.diagonalUnitary
+Source: lean/DynamicalCStarAlgebras/DiagonalFlow.lean:30
+
+/-- Multiplication by the bounded diagonal function exp(i t h). -/
+def diagonalUnitary {X : Type u} (h : X → ℝ) (t : ℝ) : Operator X :=
+  lp.mapCLM 2 (fun x => diagonalPhase h t x • ContinuousLinearMap.id ℂ ℂ)
+    zero_le_one (diagonalScalar_norm_le h t)
+
+Declaration: DynamicalCStarAlgebras.diagonalFlow
+Source: lean/DynamicalCStarAlgebras/DiagonalFlow.lean:52
+
+/-- The diagonal conjugation map sigma_(h,t) from the introduction. -/
+def diagonalFlow {X : Type u} (h : X → ℝ) (t : ℝ) (a : Operator X) : Operator X :=
+  diagonalUnitary h t * a * diagonalUnitary h (-t)
+
+==============================================================================
+05. Continuity points for one height
+==============================================================================
+
+Declaration: DynamicalCStarAlgebras.continuityPoints
+Source: lean/DynamicalCStarAlgebras/ContinuityPoints.lean:16
+
+/-- The norm-continuity points of the diagonal pre-flow, as in the introduction. -/
+def continuityPoints {X : Type u} (h : X → ℝ) : Set (Operator X) :=
+  {a | Continuous (fun t : ℝ => diagonalFlow h t a)}
+
+==============================================================================
+06. Common coarse continuity points: CP(X)
+==============================================================================
+
+Declaration: DynamicalCStarAlgebras.coarseContinuityPoints
+Source: lean/DynamicalCStarAlgebras/CoarseContinuity.lean:8
+
+/-- The common continuity points of every coarse real-valued diagonal pre-flow. -/
+def coarseContinuityPoints {X : Type u} (C : CoarseStructure X) : Set (Operator X) :=
+  {a | ∀ h : X → ℝ, IsCoarseReal C h → a ∈ continuityPoints h}
+
+==============================================================================
+07. Uniform local finiteness of a metric space
+==============================================================================
+
+Declaration: DynamicalCStarAlgebras.UniformlyLocallyFinite
+Source: lean/DynamicalCStarAlgebras/SeparatedBlockSelection.lean:11
+
+/-- Uniform local finiteness as in the introduction: each positive radius has a
+uniform finite bound on ball cardinalities. Closed balls give the same condition. -/
+def UniformlyLocallyFinite (X : Type*) [PseudoMetricSpace X] : Prop :=
+  ∀ R : ℝ, 0 < R → ∃ N : ℕ, ∀ x : X,
+    (Metric.closedBall x R).Finite ∧ (Metric.closedBall x R).ncard ≤ N
+
+==============================================================================
+08. Entire analyticity and entire exponential type
+==============================================================================
+
+Declaration: DynamicalCStarAlgebras.IsEntireExtension
+Source: lean/DynamicalCStarAlgebras/EntirePropagation.lean:10
+
+/-- An entire extension of the diagonal orbit in Definition Def.BandAnalytic.functions. -/
+structure IsEntireExtension {X : Type u} (h : X → ℝ) (a : Operator X)
+    (F : ℂ → Operator X) : Prop where
+  differentiable : Differentiable ℂ F
+  on_real : ∀ t : ℝ, F t = diagonalFlow h t a
+
+Declaration: DynamicalCStarAlgebras.IsEntireExponentialType
+Source: lean/DynamicalCStarAlgebras/EntirePropagation.lean:16
+
+/-- Entire analyticity of exponential type, with both constants strictly positive. -/
+def IsEntireExponentialType {X : Type u} (h : X → ℝ) (a : Operator X) : Prop :=
+  ∃ F : ℂ → Operator X, IsEntireExtension h a F ∧
+    ∃ C : ℝ, 0 < C ∧ ∃ K : ℝ, 0 < K ∧
+      ∀ z : ℂ, ‖F z‖ ≤ C * Real.exp (K * |z.im|)
+
+==============================================================================
+09. Common exponential-type analytic algebra: AP_exp(X)
+==============================================================================
+
+Declaration: DynamicalCStarAlgebras.exponentialAnalyticPoints
+Source: lean/DynamicalCStarAlgebras/AnalyticAlgebra.lean:82
+
+/-- Definition Def.AP.algebra.defi: norm closure after intersecting over coarse maps. -/
+def exponentialAnalyticPoints {X : Type u} (C : CoarseStructure X) : Set (Operator X) :=
+  closure {a | ∀ h : X → ℝ, IsCoarseReal C h → IsEntireExponentialType h a}
+
+==============================================================================
+10. Exponential growth and common entire analytic algebra: AP(X)
+==============================================================================
+
+Declaration: DynamicalCStarAlgebras.AtMostExponentialGrowth
+Source: lean/DynamicalCStarAlgebras/ExponentialGrowth.lean:8
+
+/-- Definition Defi.Exp.Growth: uniform exponential cardinal bounds on closed integer balls. -/
+def AtMostExponentialGrowth (X : Type*) [PseudoMetricSpace X] : Prop :=
+  ∃ L : ℝ, 1 < L ∧ ∀ (m : ℕ), 0 < m → ∀ x : X,
+    (Metric.closedBall x m).Finite ∧ ((Metric.closedBall x m).ncard : ℝ) ≤ L ^ m
+
+Declaration: DynamicalCStarAlgebras.entireAnalyticPoints
+Source: lean/DynamicalCStarAlgebras/ExponentialGrowth.lean:73
+
+/-- Definition Def.AP.entire.algebra: closure of entire points common to all coarse real maps. -/
+def entireAnalyticPoints {X : Type*} (C : CoarseStructure X) : Set (Operator X) :=
+  closure {a | ∀ h : X → ℝ, IsCoarseReal C h → ∃ F, IsEntireExtension h a F}
+
+==============================================================================
+11. Analytic extension to a closed strip
+==============================================================================
+
+Declaration: DynamicalCStarAlgebras.IsStripExtension
+Source: lean/DynamicalCStarAlgebras/AnalyticExtensions.lean:18
+
+/-- The extension is specified on the closed strip; values outside it are unrestricted. -/
+structure IsStripExtension {X : Type u} (h : X → ℝ) (a : Operator X)
+    (δ : ℝ) (F : ℂ → Operator X) : Prop where
+  continuousOn : ContinuousOn F (Complex.im ⁻¹' Set.Icc (-δ) δ)
+  differentiableOn : DifferentiableOn ℂ F (Complex.im ⁻¹' Set.Ioo (-δ) δ)
+  on_real : ∀ t : ℝ, F t = diagonalFlow h t a
+
+==============================================================================
+12. Common strip-analytic algebra: AP_strip(X)
+==============================================================================
+
+Declaration: DynamicalCStarAlgebras.stripAnalyticPoints
+Source: lean/DynamicalCStarAlgebras/StripAnalyticPoints.lean:8
+
+/-- Definition Defi.AP_band: norm closure after intersection over all coarse real maps. -/
+def stripAnalyticPoints {X : Type*} (C : CoarseStructure X) : Set (Operator X) :=
+  closure {a | ∀ h : X → ℝ, IsCoarseReal C h →
+    ∃ δ : ℝ, 0 < δ ∧ ∃ F, IsStripExtension h a δ F}
+
+==============================================================================
+13. Quasi-locality modulus
+==============================================================================
+
+Declaration: DynamicalCStarAlgebras.compressionNorms
+Source: lean/DynamicalCStarAlgebras/QuasiLocalModulus.lean:10
+
+/-- Norms of compressions by sets separated by at least r. -/
+def compressionNorms {X : Type u} [PseudoMetricSpace X] (a : Operator X) (r : ℝ) : Set ℝ :=
+  {s | ∃ A B : Set X, (∀ x ∈ A, ∀ y ∈ B, r ≤ dist x y) ∧
+    s = ‖coordinateProjection A * a * coordinateProjection B‖}
+
+Declaration: DynamicalCStarAlgebras.quasiLocalModulus
+Source: lean/DynamicalCStarAlgebras/QuasiLocalModulus.lean:25
+
+/-- Definition `Defi.QL.Decay.modulus`, extended harmlessly to all real radii.
+Every set of values is nonempty and bounded above by the operator norm. -/
+def quasiLocalModulus {X : Type u} [PseudoMetricSpace X] (a : Operator X) (r : ℝ) : ℝ :=
+  sSup (compressionNorms a r)
+
+==============================================================================
+14. Polynomial decay and QL_alpha(X)
+==============================================================================
+
+Declaration: DynamicalCStarAlgebras.HasPolynomialDecay
+Source: lean/DynamicalCStarAlgebras/PolynomialDecay.lean:12
+
+/-- The exact positive-radius bound in Definition Defi.QLalpha. -/
+def HasPolynomialDecay {X : Type u} [PseudoMetricSpace X] (α : ℝ) (a : Operator X) : Prop :=
+  ∃ M : ℝ, 0 < M ∧ ∀ r : ℝ, 0 < r → quasiLocalModulus a r ≤ M * r ^ (-α)
+
+Declaration: DynamicalCStarAlgebras.polynomialQuasiLocal
+Source: lean/DynamicalCStarAlgebras/PolynomialDecay.lean:15
+
+def polynomialQuasiLocal {X : Type u} [PseudoMetricSpace X] (α : ℝ) : Set (Operator X) :=
+  closure {a | HasPolynomialDecay α a}
+
+==============================================================================
+15. Exponential decay and QL_exp(X)
+==============================================================================
+
+Declaration: DynamicalCStarAlgebras.HasExponentialDecay
+Source: lean/DynamicalCStarAlgebras/DecayAlgebras.lean:24
+
+/-- The pointwise exponential bound in Definition Defi.QL.exp. -/
+def HasExponentialDecay {X : Type u} [PseudoMetricSpace X] (a : Operator X) : Prop :=
+  ∃ c : ℝ, 0 < c ∧ ∃ M : ℝ, 0 < M ∧
+    ∀ r : ℝ, 0 ≤ r → quasiLocalModulus a r ≤ M * Real.exp (-c * r)
+
+Declaration: DynamicalCStarAlgebras.exponentialQuasiLocal
+Source: lean/DynamicalCStarAlgebras/DecayAlgebras.lean:29
+
+/-- The norm closure defining QL_exp. -/
+def exponentialQuasiLocal {X : Type u} [PseudoMetricSpace X] : Set (Operator X) :=
+  closure {a | HasExponentialDecay a}
+
+==============================================================================
+16. Coarse graph unions: the hypothesis of Theorem E
+==============================================================================
+
+Declaration: DynamicalCStarAlgebras.CoarseGraphUnion
+Source: lean/DynamicalCStarAlgebras/CoarseGraphUnions.lean:9
+
+/-- A countable partition into finite connected graphs with the metric and separation
+conditions in the manuscript's definition of a coarse disjoint union. -/
+structure CoarseGraphUnion (X : Type*) [PseudoMetricSpace X] where
+  component : X → ℕ
+  finite : ∀ n, Finite {x : X // component x = n}
+  graph : ∀ n, SimpleGraph {x : X // component x = n}
+  connected : ∀ n, (graph n).Connected
+  dist_eq : ∀ n (x y : {x : X // component x = n}),
+    dist (x : X) (y : X) = ((graph n).dist x y : ℝ)
+  separated : ∀ r : ℝ, ∃ N : ℕ, ∀ x y : X,
+    component x ≠ component y → N ≤ component x + component y → r ≤ dist x y
+
+==============================================================================
+17. Expander graph unions: the hypothesis of Theorems C and D
+==============================================================================
+
+Declaration: DynamicalCStarAlgebras.ExpanderGraphUnionData
+Source: lean/DynamicalCStarAlgebras/NonemptyExpanderUnion.lean:101
+
+/-- The literal expander-union data from the manuscript; empty components are permitted. -/
+structure ExpanderGraphUnionData (X : Type*) [PseudoMetricSpace X] where
+  component : X → ℕ
+  finite : ∀ n, Finite {x : X // component x = n}
+  graph : ∀ n, SimpleGraph {x : X // component x = n}
+  dist_eq : ∀ n (x y : {x : X // component x = n}),
+    dist (x : X) (y : X) = ((graph n).dist x y : ℝ)
+  separated : ∀ r : ℝ, ∃ N : ℕ, ∀ x y : X,
+    component x ≠ component y → N ≤ component x + component y → r ≤ dist x y
+  degreeBound : ℕ
+  degree_le : ∀ n, letI := @Fintype.ofFinite {x : X // component x = n} (finite n)
+    ∀ x, ((graph n).neighborFinset x).card ≤ degreeBound
+  expansionConstant : ℝ
+  expansion_pos : 0 < expansionConstant
+  expansion : ∀ n, letI := @Fintype.ofFinite {x : X // component x = n} (finite n)
+    HasVertexExpansion (graph n) expansionConstant
+  card_tendsto : Tendsto (fun n => (Nat.card {x : X // component x = n} : ℝ)) atTop atTop
+
+==============================================================================
+18. Vertex boundary and expansion
+==============================================================================
+
+Declaration: DynamicalCStarAlgebras.graphNeighborhood
+Source: lean/DynamicalCStarAlgebras/GraphExpansion.lean:10
+
+/-- The closed one-step graph neighborhood of a finite vertex set. -/
+def graphNeighborhood {X : Type*} [Fintype X] (G : SimpleGraph X) (A : Finset X) : Finset X :=
+  Finset.univ.filter fun x => x ∈ A ∨ ∃ y ∈ A, G.Adj y x
+
+Declaration: DynamicalCStarAlgebras.graphBoundary
+Source: lean/DynamicalCStarAlgebras/GraphExpansion.lean:14
+
+/-- The external vertex boundary used in the manuscript's expander definition. -/
+def graphBoundary {X : Type*} [Fintype X] (G : SimpleGraph X) (A : Finset X) : Finset X :=
+  graphNeighborhood G A \ A
+
+Declaration: DynamicalCStarAlgebras.HasVertexExpansion
+Source: lean/DynamicalCStarAlgebras/GraphExpansion.lean:18
+
+/-- Vertex expansion for every set containing at most half of the vertices. -/
+def HasVertexExpansion {X : Type*} [Fintype X] (G : SimpleGraph X) (γ : ℝ) : Prop :=
+  ∀ A : Finset X, (A.card : ℝ) ≤ Fintype.card X / 2 →
+    γ * A.card ≤ (graphBoundary G A).card
+
+==============================================================================
+19. Bounded product of matrix algebras
+==============================================================================
+
+Declaration: DynamicalCStarAlgebras.BoundedMatrixProduct
+Source: lean/DynamicalCStarAlgebras/BoundedMatrixProducts.lean:110
+
+/-- The bounded product of complex matrix algebras, realized with their usual
+operator norms on the standard finite-dimensional Hilbert spaces. The index
+zero contributes a trivial factor. -/
+abbrev BoundedMatrixProduct := lp (fun n : ℕ => Operator (Fin n)) ∞

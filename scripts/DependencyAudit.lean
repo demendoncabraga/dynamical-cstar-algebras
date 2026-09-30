@@ -70,7 +70,6 @@ run_cmd do
     `DynamicalCStarAlgebras.finitePropagation_iff_coarse_entireExponential,
     `DynamicalCStarAlgebras.uniformRoe_eq_exponentialAnalyticPoints,
     `DynamicalCStarAlgebras.entire_coefficient_all_rates,
-    `DynamicalCStarAlgebras.uniformRoe_eq_entireAnalyticPoints_of_exponentialGrowth,
     `DynamicalCStarAlgebras.quasiLocal_commutator_bound,
     `DynamicalCStarAlgebras.quasiLocal_subset_coarseContinuityPoints,
     `DynamicalCStarAlgebras.nonQuasiLocal_finite_buffer_witnesses,
@@ -98,14 +97,12 @@ run_cmd do
     `DynamicalCStarAlgebras.atMostExponentialGrowth_iff_volume_bound,
     `DynamicalCStarAlgebras.quasiLocal_inter_continuityPoints,
     `DynamicalCStarAlgebras.CoarseDisjointUnion.bijectivelyCoarselyEquivalent,
-    `DynamicalCStarAlgebras.CoarseDisjointUnion.exists_metric_with_prescribed_separation,
     `DynamicalCStarAlgebras.coarse_uniformlyLocallyFinite_iff,
     `DynamicalCStarAlgebras.continuousOrbitSubalgebra_isClosed,
     `DynamicalCStarAlgebras.exists_unique_weakIntegral,
     `DynamicalCStarAlgebras.isStripExponentialType_iff_stripAnalytic,
     `DynamicalCStarAlgebras.iteratedCommutator_characterization,
     `DynamicalCStarAlgebras.fejerAverage_sub_norm_le_of_local_bound,
-    `DynamicalCStarAlgebras.CoarseGraphUnion.exists_exponentialGrowth_metric,
     `DynamicalCStarAlgebras.IsLargeScaleGeodesic.atMostExponentialGrowth,
     `DynamicalCStarAlgebras.graphMetric_atMostExponentialGrowth,
     `DynamicalCStarAlgebras.quasiLocal_smoothing,
@@ -136,13 +133,14 @@ run_cmd do
     `DynamicalCStarAlgebras.intermediate_eq_uniformRoe_of_propertyA,
     `DynamicalCStarAlgebras.polynomialDecay_not_coarse_invariant,
     `DynamicalCStarAlgebras.exponentialDecay_not_coarse_invariant,
-    `DynamicalCStarAlgebras.singletonGraphUnion_growth_counterexample,
     `DynamicalCStarAlgebras.graph_diameter_le_log_card,
     `DynamicalCStarAlgebras.CoarseStructure.ofMetric_isMetrizable,
     `DynamicalCStarAlgebras.finitelyGeneratedGroup_cayley_geometry,
     `DynamicalCStarAlgebras.exists_discontinuous_diagonal_preflow,
     `DynamicalCStarAlgebras.maximalULF_not_metrizable,
-    `DynamicalCStarAlgebras.uniformRoe_not_subset_closure_countable]
+    `DynamicalCStarAlgebras.uniformRoe_not_subset_closure_countable,
+    `DynamicalCStarAlgebras.exists_boundedDegree_coarseEmbedding,
+    `DynamicalCStarAlgebras.entireAnalyticPoints_eq_exponentialAnalyticPoints]
   let mut todo := roots
   let mut seen : NameSet := {}
   let mut rows : Array Json := #[]

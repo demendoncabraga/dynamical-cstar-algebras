@@ -3,13 +3,13 @@
 The target is *Dynamical C*-algebras and coarse geometry*, `paper/main.tex`.
 Coverage includes Theorems A–E, supporting definitions and results, the
 coarse-space generalizations, and required appendix dependencies. The manuscript
-has the reviewed countability and remetrization qualifications; Lean/Mathlib
+has the reviewed countability qualification and unconditional Theorem B; Lean/Mathlib
 v4.33.1 pins are unchanged.
 
 Theorems **A–E are verified**, including all cited mathematical dependencies in
-their proof chains. The inventory review covers all 63 statement environments,
-32 citation occurrences, and mathematical prose/background definitions.
-All inventory entries are verified, including the two corrected prose assertions.
+their proof chains. The inventory review covers all 62 statement environments,
+35 citation occurrences, and mathematical prose/background definitions.
+The revised graph-embedding proposition and analytic-algebra corollary are included.
 See [resolved manuscript qualifications](SOURCE_COVERAGE_REVIEW.md#completion-review-of-additional-prose).
 
 ## Checked results
@@ -38,9 +38,11 @@ and quasi-local continuity-substructure equalities hold for arbitrary coarse
 spaces and arbitrary real heights. The quasi-local proof explicitly preserves
 each tolerance/entourage estimate under Fejer averaging.
 
-Theorem B includes quasi-local = common coarse continuity points, Roe = common
-entire exponential analytic points, and Roe = entire analytic points under
-exponential growth. Finite witnesses, buffer removal and separated-block
+Theorem B proves quasi-local = common coarse continuity points and Roe = entire
+analytic points for every uniformly locally finite metric space. Exponential
+growth is no longer a hypothesis. A directly proved degree-three graph embedding
+supplies an equivalent metric with exponential growth on the same set. The new
+corollary identifies the entire and exponential-type analytic closures. Finite witnesses, buffer removal and separated-block
 selection construct the height detecting non-quasi-locality. The literal volume
 lemma now includes the exact supremum definitions of N_X and eta_a, the stated
 factor-two tail at every cutoff, and Roe membership.
@@ -55,9 +57,7 @@ uniqueness and the entrywise iterated-commutator recursion are checked, retainin
 unbounded heights and explicit bounded-operator existence conditions.
 
 Generic finite coarse disjoint unions are independent of cross-component metric
-choices up to bijective coarse equivalence. Cross distances can be increased at
-any prescribed rate while preserving component metrics. Bounded-degree graph
-unions admit such a metric with exponential growth. Uniformly locally finite
+choices up to bijective coarse equivalence. Uniformly locally finite
 large-scale geodesic spaces also have exponential growth; the checked definition
 uses bounded-step chains with an affine length bound. Connected shortest-path
 graphs supply the graph/Cayley special case.
@@ -137,14 +137,11 @@ closure of a genuine manuscript root. Only `propext`, `Classical.choice` and
 is admitted. Mathematical correspondence is reviewed separately in
 `SOURCE_COVERAGE_REVIEW.md`.
 
-Latest validation (2026-09-28): all 17 audit tests, the ordinary audit, and
-`sh scripts/audit.sh --terminal` pass. The terminal run checks the build, complete
-coverage, exact source fingerprint, allowed axioms, and dependency closure:
-1,287 source declarations in 193 modules support 138 manuscript roots.
-All 1,325 inventory entries are verified. The source correspondence review is
-recorded separately; the automated audit does not substitute for it.
-
-Publication preparation also passed a rebuild of all 193 project proof modules
-and the entry point in a separate source-only directory, followed by the terminal
-audit. Pinned third-party dependency caches were reused; compiled project proofs
-were not. The hosted GitHub workflow awaits the first public push.
+Latest validation (2026-09-29): the full build, all 17 audit regression tests,
+ordinary audit and terminal audit pass. All 1,328 inventory entries are verified;
+1,288 source declarations in 194 modules support 136 manuscript roots. The
+reviewed source SHA256 is `2afdc5e2011fb9f96e73b4c9125c5f9a7e32cd3e122678d6221dc31082f1eab9`.
+The audit verifies dependency closure and permitted axioms. The previous public
+version additionally passed a separate source-only rebuild; for this revision,
+Lake rebuilt the changed modules and affected dependents in the working checkout.
+Hosted GitHub Actions status is separate from these local checks.

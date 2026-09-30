@@ -7,8 +7,8 @@ revisions recorded in `lake-manifest.json`.
 
 Theorems A–E, supporting results, cited mathematical dependencies needed by their
 proofs, and the coarse-space generalizations are formalized. The reviewed inventory
-contains 1,325 verified entries: 1,287 distinct declarations in 193 proof modules,
-supporting 138 manuscript roots. The terminal audit checks every declaration's
+contains 1,328 verified entries: 1,288 distinct declarations in 194 proof modules,
+supporting 136 manuscript roots. The terminal audit checks every declaration's
 axioms and its connection to those roots. Only `propext`, `Classical.choice`, and
 `Quot.sound` are permitted; there are no project axioms or proof placeholders.
 
@@ -57,10 +57,20 @@ All declarations below belong to the namespace `DynamicalCStarAlgebras`.
 | Article | Lean declaration | Source |
 | --- | --- | --- |
 | Theorem A | `theoremA` | [TheoremA.lean](lean/DynamicalCStarAlgebras/TheoremA.lean) |
-| Theorem B | `theoremB` | [TheoremB.lean](lean/DynamicalCStarAlgebras/TheoremB.lean) |
+| Theorem B (no growth hypothesis) | `theoremB` | [TheoremB.lean](lean/DynamicalCStarAlgebras/TheoremB.lean) |
 | Theorem C | `theoremC` | [ExpanderTheorems.lean](lean/DynamicalCStarAlgebras/ExpanderTheorems.lean) |
 | Theorem D | `theoremD` | [ExpanderTheorems.lean](lean/DynamicalCStarAlgebras/ExpanderTheorems.lean) |
 | Theorem E | `theoremE` | [StripCharacterization.lean](lean/DynamicalCStarAlgebras/StripCharacterization.lean) |
+
+The cited degree-three graph embedding is proved in
+[BoundedDegreeEmbedding.lean](lean/DynamicalCStarAlgebras/BoundedDegreeEmbedding.lean).
+Its supporting construction is in `CoarseMatchingCover.lean` and
+`MatchingRayGraph.lean`. The same-set metric reduction and the revised Theorem B
+use no external mathematical assumptions. The new AP = AP_exp corollary is in
+`TheoremB.lean`.
+
+For manual review, [MAIN_THEOREM_DEFINITIONS.txt](docs/MAIN_THEOREM_DEFINITIONS.txt)
+collects the definitions used to read Theorems A–E and their growth reduction.
 
 Import the whole library with `import DynamicalCStarAlgebras`. The entry point
 imports the terminal proof modules; their imports expose the remaining modules.
@@ -97,7 +107,9 @@ lockfile, all Lean sources, the manuscript, the coverage records, and the hidden
 `.github/`, `.gitignore`, and `.gitattributes` files. Exclude `.lake/` and other
 ignored artifacts. The line-ending attributes preserve the manuscript fingerprint
 across platforms.
-The GitHub workflow is prepared locally; its first hosted run occurs after upload.
+Public repository: https://github.com/demendoncabraga/dynamical-cstar-algebras.
+Hosted workflow results are available in its Actions tab; local validation is
+recorded separately in `lean/FORMALIZATION_LOG.md`.
 
 After an authorized manuscript change, review its mathematical correspondence
 before updating `source_sha256`. Keep `paper_roots` synchronized with

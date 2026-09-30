@@ -6,12 +6,11 @@ The revised manuscript has been reviewed and its SHA256 synchronized with the in
 
 ## Inventory status
 
-The source inventory has been reviewed across all 63 mathematical statement
-environments, all 32 citation occurrences, and the mathematical prose and
+The source inventory has been reviewed across all 62 mathematical statement
+environments, all 35 citation occurrences, and the mathematical prose and
 background definitions. `inventory_complete` records this inventory review,
 not completion of every proof obligation. Theorems A–E and all supporting
-statement environments and all mathematical prose entries are verified. The final
-countability and remetrization qualifications are resolved; see
+statement environments and all mathematical prose entries are verified. The countability qualification and the revised growth reduction are reviewed; see
 [the resolved qualifications below](#completion-review-of-additional-prose).
 
 Cited results required by the proof are supplied by checked Mathlib results or
@@ -26,61 +25,60 @@ All names below are in namespace `DynamicalCStarAlgebras`.
 | --- | --- | --- |
 | Theorem C | `theoremC` | Full unconditional Roe < AP_strip < quasi-local for raw expander unions, including empty initial components. |
 | Theorem D | `theoremD` | Full strict decay chain for every 0 < alpha < beta and injective isometric bounded complex matrix-product embedding with exponential range. |
-| Ozawa Theorem A, cited at line 1577 | `boundedMatrixProduct_not_range_subset_uniformRoe` | Full nonunital nonembedding theorem for every ULF pseudometric space; no external assumption. |
+| Ozawa Theorem A, cited at line 1560 | `boundedMatrixProduct_not_range_subset_uniformRoe` | Full nonunital nonembedding theorem for every ULF pseudometric space; no external assumption. |
 | Remark 808 | `maximalULF_counterexample` | Full literal ℕ example: maximal ULF structure, bounded-height characterization, all common continuity points, and explicit flat-row non-quasi-local witness. |
-| Metric propagation, line 444 | `metricPropagation_lt_top_iff` | Extended nonnegative support-distance supremum, exact radius characterization and equivalence to finite propagation. Zero support has supremum zero. |
-| Cited Braga–Exel Proposition 2.1, line 218 | `isCoarseReal_iff_uniformRoe_continuous` | Coarse heights are exactly those making every Roe operator a continuity point, for arbitrary ULF coarse structures. Necessity is proved using partial translations and Fejer approximation. |
-| Ozawa finite-representation step, cited at line 1577 | `signedBasisRepresentation_irreducible` | Finite signed-permutation group and irreducible norm-preserving complex representation in every positive dimension. |
-| Ozawa lower amplification step, cited at line 1577 | `matrix_embedding_amplification_norm_lower_bound` | Injective nonunital matrix-algebra homomorphisms supply an isometric copy; an invariant tensor vector gives the lower bound one. |
-| Li–Zhang–Zhu finite probabilistic argument, cited at line 1922 | `exists_frame_bound_of_coordinate_tails` | Exact constant32 after all finite-net/counting/union estimates. This source proof step has an explicit concentration premise, now discharged by CoordinateGaussian. |
+| Metric propagation, line 436 | `metricPropagation_lt_top_iff` | Extended nonnegative support-distance supremum, exact radius characterization and equivalence to finite propagation. Zero support has supremum zero. |
+| Cited Braga–Exel Proposition 2.1, line 219 | `isCoarseReal_iff_uniformRoe_continuous` | Coarse heights are exactly those making every Roe operator a continuity point, for arbitrary ULF coarse structures. Necessity is proved using partial translations and Fejer approximation. |
+| Ozawa finite-representation step, cited at line 1560 | `signedBasisRepresentation_irreducible` | Finite signed-permutation group and irreducible norm-preserving complex representation in every positive dimension. |
+| Ozawa lower amplification step, cited at line 1560 | `matrix_embedding_amplification_norm_lower_bound` | Injective nonunital matrix-algebra homomorphisms supply an isometric copy; an invariant tensor vector gives the lower bound one. |
+| Li–Zhang–Zhu finite probabilistic argument, cited at line 1905 | `exists_frame_bound_of_coordinate_tails` | Exact constant32 after all finite-net/counting/union estimates. This source proof step has an explicit concentration premise, now discharged by CoordinateGaussian. |
 | `lem:smoothing` | `quasiLocal_smoothing` | Full arbitrary-coarse-space statement, exact oscillation threshold and error 16*delta*norm(a)+8/delta*epsilon. Cosine square-partition, finite-sign orthogonality and bounded operator construction are proved. |
-| Claim at line 829 | `height_band_nonzero_compression` | Nonzero compression forces adjacent bands and disjointness of the band rectangle from the restricted entourage, with both literal source conclusions. |
-| Remark at line 1014 | `controlled_operator_partial_translation_decomposition` | Finite disjoint partial-bijection partition, partial isometries, bounded diagonal coefficients and entire exponential analyticity of each summand. Holds for arbitrary ULF coarse spaces. |
-| Ozawa Lemma 3, cited nonembedding proof at line 1577 | `irreducible_unitary_average_norm_le` | Schur averaging and coefficient orthogonality prove the exact reciprocal-square-root dimension bound. |
-| Ozawa amplification proof at line 1577 | `controlled_unitary_amplification_norm_bound` | Controlled-relation decomposition gives a sufficient N² amplification bound. This is an intermediate proof step, not the sharp source threshold or final nonembedding theorem. |
+| Claim at line 818 | `height_band_nonzero_compression` | Nonzero compression forces adjacent bands and disjointness of the band rectangle from the restricted entourage, with both literal source conclusions. |
+| Remark at line 1004 | `controlled_operator_partial_translation_decomposition` | Finite disjoint partial-bijection partition, partial isometries, bounded diagonal coefficients and entire exponential analyticity of each summand. Holds for arbitrary ULF coarse spaces. |
+| Ozawa Lemma 3, cited nonembedding proof at line 1560 | `irreducible_unitary_average_norm_le` | Schur averaging and coefficient orthogonality prove the exact reciprocal-square-root dimension bound. |
+| Ozawa amplification proof at line 1560 | `controlled_unitary_amplification_norm_bound` | Controlled-relation decomposition gives a sufficient N² amplification bound. This is an intermediate proof step, not the sharp source threshold or final nonembedding theorem. |
 | `Prop.palpha.is.inQLalpha.exp` | `CoarseGraphUnion.projection_mem_polynomialQuasiLocal` | Full polynomial membership for the source projection data, including the finite initial zero segment. The ambient modulus follows from finite expander estimates and uniform block compression. Finite-subspace existence is now proved in GoodSubspaces. |
 | Assumption.1, strong-sum construction | `exists_projection_strong_sum` | Any supplied family of component orthogonal projections assembles to an orthogonal projection; exact restrictions and strong convergence on every vector are proved. Prescribed ranks and compression bounds are not postulated as a universal existence theorem. |
 | Strict-inclusion proof from Assumption.1 | `ExpanderGraphUnion.strict_decay_inclusions_of_projection_data` | Combines membership, norm-closure nonmembership and existing algebra inclusions from actual projection data. This intermediate implication is consumed by the now-checked unconditional C/D assembly. |
 | `Eq.UnifExpDecay` | `CoarseGraphUnion.good_projection_block_exponential_bound` | Exact 2*C*kappa^(-r/24) modulus bound for supported contractions with the source good-projection estimates. Every nonnegative radius and all component sizes are handled. |
-| Matrix-product argument, lines 1264–1313 | `CoarseGraphUnion.exists_matrixProduct_embedding_of_good_subspaces` | From actual good closed finite subspaces with exact ceil(card^(1/4)) dimensions, constructs an injective isometric nonunital star-algebra map with exponentially decaying range. Models the bounded complex matrix product by lp infinity. Universal subspace existence is now proved in GoodSubspaces. |
-| Appendix reductions, lines 1935–1955 | `quarter_power_compression_of_frame_bound`, `logarithmic_rank_compression_of_frame_bound` | Exact rank rounding and constants, including the quarter-power factor 3*C. These are implications from the frame bound, not themselves existence arguments; the cited frame-subspace theorem is now proved separately. |
+| Matrix-product argument, lines 1247–1296 | `CoarseGraphUnion.exists_matrixProduct_embedding_of_good_subspaces` | From actual good closed finite subspaces with exact ceil(card^(1/4)) dimensions, constructs an injective isometric nonunital star-algebra map with exponentially decaying range. Models the bounded complex matrix product by lp infinity. Universal subspace existence is now proved in GoodSubspaces. |
+| Appendix reductions, lines 1918–1938 | `quarter_power_compression_of_frame_bound`, `logarithmic_rank_compression_of_frame_bound` | Exact rank rounding and constants, including the quarter-power factor 3*C. These are implications from the frame bound, not themselves existence arguments; the cited frame-subspace theorem is now proved separately. |
 | `lem:volume` | `volume_approximation` | Full N_X/eta statement, exact factor-two tail for every cutoff, and Roe membership. Supremum definitions use closed balls and distances at least m; empty suprema are zero. |
 | `Defi.Exp.Growth` | `atMostExponentialGrowth_iff_volume_bound` | Standalone N_X and equivalence with the uniform closed-ball growth predicate under uniform local finiteness. The source positive-radius convention is preserved. |
 | `Thm.qla.h.Points.Cont.Substructure` | `quasiLocal_inter_continuityPoints` | Full arbitrary-coarse-space equality. Fejer averaging preserves each (epsilon,E) estimate; finite integer bands prove the three-error restricted-height bound. No local finiteness or metric assumption. |
-| Coarse equivalence and metric independence, lines 432–470 | `CoarseDisjointUnion.bijectivelyCoarselyEquivalent` | Exact coarse-map/closeness definitions and arbitrary finite metric components, including empty ones. Internal component isometries give coarse equivalences independently of cross distances. |
-| `Remark.C.d.u.` | `CoarseDisjointUnion.exists_metric_with_prescribed_separation` | Changes only cross-component distances, dominates any prescribed real rate rho(n+m), and preserves bijective coarse equivalence. |
-| Growth observation, line 1109 | `CoarseGraphUnion.exists_exponentialGrowth_metric`, `IsLargeScaleGeodesic.atMostExponentialGrowth`, `graphMetric_atMostExponentialGrowth` | Bounded-degree unions admit an equivalent metric with exact exponential growth. ULF bounded-step affine-length quasigeodesics give the general growth claim; connected graph metrics give the Cayley special case. |
-| Uniform local finiteness, line 417 | `coarse_uniformlyLocallyFinite_iff` | Exact symmetric-entourage finite-fiber definition, symmetrization for general entourages, and equivalence with the metric ball definition. |
-| Continuity algebra, line 220 | `continuousOrbitSubalgebra_isClosed` | General complex C*-automorphism families, including nonunital algebras; orbit continuity is not assumed. |
-| Weak integral, line 490 | `exists_unique_weakIntegral` | General complex Hilbert spaces and measure spaces, scalar integrability plus bounded integrated form, and unique representing operator. No separability or strong operator integrability assumption. |
-| Finite-strip definitions, line 926 | `isStripExponentialType_iff_stripAnalytic` | Named positive-width/some-strip predicates and the finite-strip exponential-type condition. The compact imaginary-segment maximum supplies positive exponential constants; entire exponential type remains distinct. |
-| Iterated commutator definition and recursion, line 1748 | `iteratedCommutator_characterization` | Entrywise representation for arbitrary heights, uniqueness if bounded, order zero, and the exact successor recursion. Does not assert existence of bounded commutators. |
-| Integrated Fejer estimate, lines 575–583 | `fejerAverage_sub_norm_le_of_local_bound` | Exact epsilon+8*norm(a)/(s*pi*delta) estimate. Integrates the inverse-square tail to 4/(s*pi*delta), complementing the earlier dominated-convergence proof. |
+| Coarse equivalence and metric independence, lines 424–462 | `CoarseDisjointUnion.bijectivelyCoarselyEquivalent` | Exact coarse-map/closeness definitions and arbitrary finite metric components, including empty ones. Internal component isometries give coarse equivalences independently of cross distances. |
+| Example `Defi.21.sep.26.1.qqq` | `IsLargeScaleGeodesic.atMostExponentialGrowth`, `graphMetric_atMostExponentialGrowth` | ULF bounded-step chains of affine-controlled length imply exponential growth in the original metric. Connected graph metrics and finitely generated Cayley graphs are checked special cases. |
+| Uniform local finiteness, line 409 | `coarse_uniformlyLocallyFinite_iff` | Exact symmetric-entourage finite-fiber definition, symmetrization for general entourages, and equivalence with the metric ball definition. |
+| Continuity algebra, line 221 | `continuousOrbitSubalgebra_isClosed` | General complex C*-automorphism families, including nonunital algebras; orbit continuity is not assumed. |
+| Weak integral, line 479 | `exists_unique_weakIntegral` | General complex Hilbert spaces and measure spaces, scalar integrability plus bounded integrated form, and unique representing operator. No separability or strong operator integrability assumption. |
+| Finite-strip definitions, line 916 | `isStripExponentialType_iff_stripAnalytic` | Named positive-width/some-strip predicates and the finite-strip exponential-type condition. The compact imaginary-segment maximum supplies positive exponential constants; entire exponential type remains distinct. |
+| Iterated commutator definition and recursion, line 1731 | `iteratedCommutator_characterization` | Entrywise representation for arbitrary heights, uniqueness if bounded, order zero, and the exact successor recursion. Does not assert existence of bounded commutators. |
+| Integrated Fejer estimate, lines 564–572 | `fejerAverage_sub_norm_le_of_local_bound` | Exact epsilon+8*norm(a)/(s*pi*delta) estimate. Integrates the inverse-square tail to 4/(s*pi*delta), complementing the earlier dominated-convergence proof. |
 | Theorem `Thm.QLthetaDoesNotContainP` | `CoarseGraphUnion.projection_not_mem_polynomialQuasiLocal` | Full nonmembership in the norm-closed polynomial algebra under the projection data of Assumption.1. Uniform local finiteness supplies the common degree bound; self-adjoint approximation, component transfer, coordinate trace/rank identities and the trace contradiction are checked. The theorem also allows an ambient self-adjoint operator with the same eventual component data, so its conclusion applies to the source projection. The prescribed finite subspaces and their strong-sum projection are now constructed in GoodSubspaces and ExpanderProjectionExistence. |
 | Claim `Claim.ddd.q` | `small_projection_compression_bound` | Exact compression estimate for nonempty sets of size at most k sqrt(card X), from the projection estimate in Assumption.1. Uses the star-projection norm-square identity and a finite-cardinality entropy bound; valid whenever card X>1. Does not construct the good subspaces. |
 | Equation `Choiceofn` | `eventually_small_compression_majorant` | The exact source majorant tends to zero for alpha>0 as component sizes diverge, giving an eventual bound by any positive delta. |
-| Bounded-degree ball count (lines 1520–1526) | `graph_ball_card_le_sqrt` | Shortest walks give the geometric-sum count, the bound k^(r+1), and the exact k sqrt N consequence of the source radius constraint. Finite connected graphs, degree bound k>=2, all nonnegative real radii. |
+| Bounded-degree ball count (lines 1503–1509) | `graph_ball_card_le_sqrt` | Shortest walks give the geometric-sum count, the bound k^(r+1), and the exact k sqrt N consequence of the source radius constraint. Finite connected graphs, degree bound k>=2, all nonnegative real radii. |
 | Radius choice and `Eq.mnrn.k.claim` | `eventually_nonmembership_radius_admissible` | The exact source floor choice of m and real-power choice of r are eventually positive and satisfy m r <= log N/(2 log k). This holds for each fixed delta>0; the component threshold may depend on delta. This suffices for the checked two-limit argument. |
 | Equation `Eq.t.q.c.a.aa` | `nonmembership_radius_error_le` | Exact delta^m compression-error bound at the chosen radius, for every positive natural m. Positivity of m is supplied eventually by the preceding theorem. |
-| Uniform power estimate (lines 1528–1538) | `eventually_nonmembership_power_bound` | Assembles graph counts, small compressions, radius admissibility and the checked compression lemma to prove norm(a_n^m delta_x)<=2(2delta)^m uniformly in x on sufficiently large components. Only the source projection/approximation/modulus data remain as inputs. Global approximant transfer and coordinate trace/rank assembly are now included in the full nonmembership theorem. |
-| Lemma `lem:trace` and citation at line 1399 | `trace_projection_estimate` | Full arbitrary finite-dimensional complex Hilbert-space statement. Exhibits the trace as a real scalar and proves the exact rank lower bound for every natural power, including zero. Checked spectral eigenvector bases and finite Jensen replace the spectral measure argument; Bessel handles the projection range. |
+| Uniform power estimate (lines 1511–1521) | `eventually_nonmembership_power_bound` | Assembles graph counts, small compressions, radius admissibility and the checked compression lemma to prove norm(a_n^m delta_x)<=2(2delta)^m uniformly in x on sufficiently large components. Only the source projection/approximation/modulus data remain as inputs. Global approximant transfer and coordinate trace/rank assembly are now included in the full nonmembership theorem. |
+| Lemma `lem:trace` and citation at line 1382 | `trace_projection_estimate` | Full arbitrary finite-dimensional complex Hilbert-space statement. Exhibits the trace as a real scalar and proves the exact rank lower bound for every natural power, including zero. Checked spectral eigenvector bases and finite Jensen replace the spectral measure argument; Bessel handles the projection range. |
 | Equation `Eq.1.sep.26.1.rain` | `trace_power_ratio_bound` | Exact factor-eight comparison from the stated rank lower bound and per-basis-vector power bound. These hypotheses are intermediate estimates in the source; the basis-vector estimate is now assembled below from the source projection and decay hypotheses. Coordinate trace/rank identification and global approximant transfer are now connected in the full nonmembership theorem. |
 | Numerical contradiction after `Eq.1.sep.26.1.rain` | `trace_asymptotic_obstruction` | Checks natural-floor rounding, comparison of real-power exponents as component sizes diverge, and the logarithm ratio limit as delta tends to zero. The eventual component threshold may depend on delta. Geometric admissibility is now proved below. The global norm-closure nonmembership theorem is now complete under the source projection data. |
-| Expander separation (lines 481–486) and its citation | `vertex_expansion_uniform_separation` | Derived directly from external vertex-boundary expansion. One κ>1 depends only on γ and gives min(relative sizes) ≤ κ^(-r/2) for all nonnegative real radii and all finite graphs with that expansion constant. Includes empty sets and radius zero. Repeated neighborhoods and short walks supply the proof; no asymptotic-expander citation is assumed. |
+| Expander separation (lines 470–475) and its citation | `vertex_expansion_uniform_separation` | Derived directly from external vertex-boundary expansion. One κ>1 depends only on γ and gives min(relative sizes) ≤ κ^(-r/2) for all nonnegative real radii and all finite graphs with that expansion constant. Includes empty sets and radius zero. Repeated neighborhoods and short walks supply the proof; no asymptotic-expander citation is assumed. |
 | Equation `Eq.t.t.e.tb` | `graph_diameter_le_log_card` | Exact 2 log(card X)/log κ diameter bound for the connected graph's shortest path metric, from its checked separation estimate. |
 | Scalar step in `Eq.21.Aug.26.lb.2` | `sqrt_entropy_le_two_cuberoot` | Exact sqrt(δ log(1/δ)) ≤ 2 δ^(1/3), for every δ>0. This establishes the numerical step, not the good-subspace operator bound. |
 | Equation `Eq.ddqd.q` | `entropy_mass_of_exponential_bound` | Proves monotonicity of t log(e/t) on (0,1] and the exact exponential entropy bound, retaining the source polynomial factor. |
-| Final majorant step in `Prop.palpha.is.inQLalpha.exp` (lines 1383–1387) | `polynomialDecay_of_expander_modulus_bound` | The source square-root modulus majorant implies polynomial decay with one constant for every positive radius. The majorant is an explicit input to this intermediate theorem and is now proved for the source projection in the full membership proposition above. No subspace-existence claim is inferred from this calculation. |
+| Final majorant step in `Prop.palpha.is.inQLalpha.exp` (lines 1366–1370) | `polynomialDecay_of_expander_modulus_bound` | The source square-root modulus majorant implies polynomial decay with one constant for every positive radius. The majorant is an explicit input to this intermediate theorem and is now proved for the source projection in the full membership proposition above. No subspace-existence claim is inferred from this calculation. |
 | Theorem E (`thmE`) | `theoremE` | Full forward inclusion for uniformly locally finite metric spaces, and equality given a coarse disjoint union of finite connected graphs. The `CoarseGraphUnion` witness records a countable partition, finite connected graph fibers, exact shortest path metrics, and separation as n+m tends to infinity with n≠m. No auxiliary moment, compactness, or analytic hypotheses. |
 | Theorem `Thm.Led.In.Band` | `exponentialQuasiLocal_subset_stripAnalyticPoints` | Full reverse inclusion. The diagonal graph-block proof combines with a checked Roe off-block remainder. Scalar normalization removes the contraction bound and norm closure gives the whole algebra. The reverse argument also works for pseudometric ambient spaces and does not need uniform local finiteness. |
-| Off-block compactness, proof near line 1884 | `CoarseGraphUnion.exists_compact_offBlock` | Constructs the matrix-defined diagonal part and proves the remainder compact. Finite cut averaging gives a tail norm bound of four times the quasi-locality modulus. Finite-coordinate errors are compact, and their norm limit is compact. No external compactness result is assumed. The diagonal part is identified by its exact coefficients; separate SOT convergence notation is not asserted. |
-| Coarse disjoint union definition, graph specialization (lines 465–479) | `CoarseGraphUnion` | Exact metric and eventual separation conditions for the finite connected graph case. Component indices start at zero, a harmless reindexing of the sequence. The generic finite-metric-space union and metric-independence assertions are now checked above. |
-| Compression modulus inequality, line 1889 | `quasiLocalModulus_componentOperator_le`, `quasiLocalModulus_componentOperator_le` | Arbitrary coordinate compressions and isometric coordinate restriction do not increase the modulus, at every real radius. Coordinate inclusions are constructed as Hilbert-space isometries; restriction uses their adjoints. |
-| Diagonal graph-block argument, lines 1885–1899 | `graph_blockDiagonal_part_mem_stripAnalyticPoints` | Constructs the diagonal part of an exponentially decaying contraction, proves its norm and modulus bounds, and proves membership in AP_strip for every coarse height. Finite connected graph fibers have their shortest path distances equal to ambient distances. Uniform finite-block moments are lifted and assembled with no extra moment assumptions. The off-block remainder, scaling, and final reverse inclusion are now also checked. |
+| Off-block compactness, proof near line 1867 | `CoarseGraphUnion.exists_compact_offBlock` | Constructs the matrix-defined diagonal part and proves the remainder compact. Finite cut averaging gives a tail norm bound of four times the quasi-locality modulus. Finite-coordinate errors are compact, and their norm limit is compact. No external compactness result is assumed. The diagonal part is identified by its exact coefficients; separate SOT convergence notation is not asserted. |
+| Coarse disjoint union definition, graph specialization (lines 457–468) | `CoarseGraphUnion` | Exact metric and eventual separation conditions for the finite connected graph case. Component indices start at zero, a harmless reindexing of the sequence. The generic finite-metric-space union and metric-independence assertions are now checked above. |
+| Compression modulus inequality, line 1872 | `quasiLocalModulus_componentOperator_le`, `quasiLocalModulus_componentOperator_le` | Arbitrary coordinate compressions and isometric coordinate restriction do not increase the modulus, at every real radius. Coordinate inclusions are constructed as Hilbert-space isometries; restriction uses their adjoints. |
+| Diagonal graph-block argument, lines 1868–1882 | `graph_blockDiagonal_part_mem_stripAnalyticPoints` | Constructs the diagonal part of an exponentially decaying contraction, proves its norm and modulus bounds, and proves membership in AP_strip for every coarse height. Finite connected graph fibers have their shortest path distances equal to ambient distances. Uniform finite-block moments are lifted and assembled with no extra moment assumptions. The off-block remainder, scaling, and final reverse inclusion are now also checked. |
 | Lemma `Lemma.IterSlicing` | `graph_slicing_estimate` | Full finite connected graph result in the shortest path metric, with the least Lipschitz constant and exact factor 2(3 Lip(h))^k. All positive orders; constant heights included. The tail is indexed by n+2 and is proved summable using finiteness. |
-| Exponential sum estimate, line 1894 | `exponential_moment_sum_bound` | Exact exp(c) k! / c^(k+1) bound and summability for c>0, via checked Mathlib integral comparison. |
-| Uniform finite graph step, lines 1888–1899 | `coarse_graph_uniform_moments` | A single positive pair of factorial constants works for all finite graph contractions with the specified exponential modulus bound and unit-edge maps into the ambient metric space. This supplies the finite-block estimates; transfer to ambient operators is now checked below. The decay hypothesis is required only for r>0, as in the source. |
-| Infinite block moment assembly, lines 1888–1899 | `stripExtension_of_fiber_moments` | Arbitrary coordinate partitions, exact local moment identities, and uniform factorial bounds imply a global strip extension. Global moment operators are constructed from bounded finite matrix forms. Local bounds are explicit inputs to this intermediate step and are discharged in the final theorem. Component-to-ambient transfer is now supplied by the graph-block theorem below. The supremum norm equality itself is not claimed here. |
+| Exponential sum estimate, line 1877 | `exponential_moment_sum_bound` | Exact exp(c) k! / c^(k+1) bound and summability for c>0, via checked Mathlib integral comparison. |
+| Uniform finite graph step, lines 1871–1882 | `coarse_graph_uniform_moments` | A single positive pair of factorial constants works for all finite graph contractions with the specified exponential modulus bound and unit-edge maps into the ambient metric space. This supplies the finite-block estimates; transfer to ambient operators is now checked below. The decay hypothesis is required only for r>0, as in the source. |
+| Infinite block moment assembly, lines 1871–1882 | `stripExtension_of_fiber_moments` | Arbitrary coordinate partitions, exact local moment identities, and uniform factorial bounds imply a global strip extension. Global moment operators are constructed from bounded finite matrix forms. Local bounds are explicit inputs to this intermediate step and are discharged in the final theorem. Component-to-ambient transfer is now supplied by the graph-block theorem below. The supremum norm equality itself is not claimed here. |
 | Lemma `Lemma.BandFromMoments` | `stripExtension_of_factorial_moments` | Full strip-existence assertion and every positive width below 1/B. Bounded moment operators satisfy exactly the source entrywise commutator powers, including k=0. Factorial growth gives Taylor convergence on the disk of radius 1/B. Translating disks along the real axis and comparing matrix coefficients gives local agreement, holomorphy on the open strip, and continuity on every smaller closed strip. Arbitrary X and real h; the separate A>0 hypothesis is unnecessary for this proof. |
 | Equation `Eq.BinomialSlicing` | `iterate_diagonalCommutator_add` | Exact binomial expansion for arbitrary bounded complex diagonals. Proved by operator extensionality and the scalar binomial formula. |
 | Equation `Eq.AdbBounds.223.0` | `iterate_diagonalCommutator_eq_sum_integerBand` | Every commutator order, including zero, expands as a finite weighted sum of bands. Explicit finite index sets cover all height indices and differences. This is the source finite-sum identity, not the final graph norm estimate. |
@@ -89,12 +87,12 @@ All names below are in namespace `DynamicalCStarAlgebras`.
 | Definition `Defi.AP_band` and following algebra claim | `stripAnalyticPoints`, `stripAnalyticPoints_algebra` | Closure after intersecting over all coarse real maps, with a positive width chosen separately for each map. Restriction to the smaller width handles sums and products; conjugate reflection gives adjoints. Closed-strip continuity and interior holomorphy are proved. This is a closed unital complex star-subalgebra for every coarse space. |
 | Lemma `Lemma.BandStructure` | `IsStripExtension.translate`, `IsStripExtension.strip_norm_supremum` | Horizontal covariance on the closed strip and a finite supremum attained on its imaginary segment. No countability or boundedness hypothesis on h. |
 | Lemma `Lemma.GapEstimate` | `gapEstimate` | Extended-real infimum and supremum with the author-authorized infinite right-hand side in unbounded cases, even if the weighted operator has norm zero. The finite case is proved by supported diagonal factorization. Arbitrary nonempty sets retained. |
-| Internal claim at line 1667 | `weightedBound_closed_cover` | Closed countable cover of normalized 1-Lipschitz maps in the pointwise topology. Weighted bounded operators are characterized by finite matrix-form inequalities. Source positive indices use n+1. |
+| Internal claim at line 1650 | `weightedBound_closed_cover` | Closed countable cover of normalized 1-Lipschitz maps in the pointwise topology. Weighted bounded operators are characterized by finite matrix-form inequalities. Source positive indices use n+1. |
 | Claim `Claim.g.hg.cg` | `exists_uniform_weighted_gluing` | Baire on the compact normalized Lipschitz space yields one index and a finite region. The gluing preserves a finite set of prescribed values and equals g/2+c outside that region, for every real 1-Lipschitz g. A checked Lipschitz extension replaces the source minimum formula; zero diameter is included. |
 | Equation `Eq.28.aug.26.1` | `strip_decay_outside_finite` | Uniform exponential compression bound N exp(-r/(2N)) outside one finite exceptional set, for N>0, all real r, and arbitrary separated subsets, including empty ones. The exceptional row/column bounds and full forward inclusion are now proved as well. |
-| Theorem B (`thmB`) | `theoremB` | Exact conjunction for a uniformly locally finite metric space: quasi-local=CP, Roe=AP_exp, and exponential growth implies Roe=AP. No added operator, continuity, separability, or external-result assumptions. |
+| Theorem B (`thmB`) | `theoremB` | Exact revised conjunction for every uniformly locally finite metric space: quasi-local=CP and Roe=AP. No growth assumption. The same-set exponential-growth metric has precisely the original controlled sets. |
 | Proposition `PropNotInQLThereisCoarseNotInCPFlow` and Corollary `Cor.cstql=CP.metric` | `nonQuasiLocal_coarse_discontinuous`, `quasiLocal_eq_coarseContinuityPoints` | Full detection proposition and equality. Finite rank-one approximations show that deleting finitely many rows/columns changes an operator by a Roe operator. Finite ball neighborhoods and strong recursion produce separated blocks. A 1-Lipschitz real extension supplies the coarse height function. The proof also works for pseudometric spaces with the stated finite-ball bounds. |
-| Internal claim at line 868 | `nonQuasiLocal_finite_buffer_witnesses` | One uniform positive lower bound survives every finite buffer and every radius. The existential witness epsilon is halved as in the source. Pointwise separation ≥R for every real R implies the source strict separation >r by taking R=r+1. Finite subsets witness every strict compression norm bound. |
+| Internal claim at line 857 | `nonQuasiLocal_finite_buffer_witnesses` | One uniform positive lower bound survives every finite buffer and every radius. The existential witness epsilon is halved as in the source. Pointwise separation ≥R for every real R implies the source strict separation >r by taking R=r+1. Finite subsets witness every strict compression norm bound. |
 | Introduction, uniform local finiteness | `UniformlyLocallyFinite` | For each positive real radius, a natural bound controls cardinalities of all finite closed balls. This is the usual ball-cardinality condition; open and closed ball formulations agree after increasing the radius. No uniform discreteness assumption is imposed. |
 | Proposition `PropNotInQLThereisCoarseNotInCPFlow`, second half of proof | `separated_blocks_detect_discontinuity` | From the source’s separated blocks and uniform compression lower bound, produces a 1-Lipschitz coarse map with discontinuous orbit. Uses checked Lipschitz extension instead of the sum of ramps. Indices are n+1. Finite-block extraction and recursive separation are now proved as well, completing the proposition. |
 | Lemma `lem:commutator` (Ozawa Lemma 6) | `quasiLocal_commutator_bound` | Exact constants 4 and 2, proved by disjoint coordinate blocks, finite integer bands, floor rounding, and norm perturbation. The proof applies to any relation and nonnegative epsilon; no citation is assumed. |
@@ -104,7 +102,7 @@ All names below are in namespace `DynamicalCStarAlgebras`.
 | Lemma `lem:allrates` | `entire_coefficient_all_rates` | Every positive exponential weight has a uniform finite coefficient bound. Detection and the exact entire coefficient formula at two imaginary times give the contradiction. Entire extensions are required only for 1-Lipschitz real maps. |
 | Definition `Def.AP.entire.algebra` | `entireAnalyticPoints` | Norm closure of the intersection of entire points over all coarse real maps, in that order. |
 | Definition `Defi.Exp.Growth` | `AtMostExponentialGrowth` | Uniform finite closed-ball cardinal bounds L^m for every positive natural m, with L>1; radius zero is not constrained. This directly expresses the supremum bound used in the paper. The standalone N_X function and its equivalence with this predicate are checked in VolumeApproximation. |
-| Theorem `thm:roeentire.Exp.Growth` and Theorem B, growth assertion | `uniformRoe_eq_entireAnalyticPoints_of_exponentialGrowth` | Full Roe=AP equality. Uniform exponential volume bounds and all-rates coefficient decay yield summable row and column shell bounds. The checked Schur construction and truncation give finite-propagation approximation in operator norm. No partial-bijection decomposition or unproved citation is used. |
+| Proof of Theorem B, exponential-growth step | `uniformRoe_eq_entireAnalyticPoints_of_exponentialGrowth` | Retained as an intermediate lemma. Uniform exponential volume bounds and all-rates coefficient decay yield summable row and column shell bounds; Schur estimates and truncation give norm approximation. The final theorem removes the growth hypothesis. |
 | Lemma `lem:volume`, supporting approximation argument | `uniformRoe_of_summable_shell_bounds`, `finitePropagation_approximation_of_schur_tail` | General summable-shell approximation is checked and used by the growth theorem. The literal N_X/eta formulation and its exact factor-two tail error are additionally checked in volume_approximation. |
 | Proposition `Prop.analitic.iff.finite.dh.prop` | `isEntireExponentialType_iff_finitePropagation` | Full equivalence for arbitrary X and real h, including unbounded h. Forward growth bounds give the precise propagation radius K. Conversely, finite propagation M yields the exact complex-time entries and norm bound norm(a) exp(M abs(Im z)); entire holomorphy and real-orbit agreement are checked. No local finiteness or extra regularity assumptions. |
 | Equation fix2:eq.complexbound and the Boas citation | `norm_sum_exponentials_le`, `finiteOrbitForm_norm_le` | The required finite-exponential-sum Phragmen–Lindelof estimate is proved using Mathlib. Zero coefficients need no frequency restriction. Specializing to finite vector pairings yields the exact manuscript constant. This does not claim every assertion of the cited book theorem. |
@@ -210,13 +208,13 @@ is now proved in `TheoremA`, together with its invariant-subalgebra generalizati
 
 ## Reviewed manuscript conventions
 
-1. **Gap estimate (`Lemma.GapEstimate`, line 1634).** Nonempty A and B need not
+1. **Gap estimate (`Lemma.GapEstimate`, line 1617).** Nonempty A and B need not
    have finite inf h(A) and sup h(B). On 2026-09-21 the author explicitly chose
    **extended-real bounds**, retaining arbitrary nonempty sets. The finite-bound
    case is now proved by supported diagonal factorization; unbounded cases
    have an explicitly infinite right-hand side in the extended nonnegative codomain.
    The lemma is verified. No manuscript edit has been made.
-2. **Baire/gluing proof (around lines 1686–1720).** The finite neighborhood set
+2. **Baire/gluing proof (around lines 1669–1703).** The finite neighborhood set
    is named I, then the diameter and gluing formulas use F without defining it.
    The formalization consistently uses the chosen finite set S in both places.
    The checked extension proof handles diameter zero as well. This records the
@@ -224,7 +222,7 @@ is now proved in `TheoremA`, together with its invariant-subalgebra generalizati
 3. **Index and analytic conventions.** The source distinguishes N from
    N union {0}; positive-index statements must not silently become statements
    at zero. The Fejer formula at zero requires its continuous sinc extension.
-   Balls are explicitly closed before `lem:compression` (line 1416).
+   Balls are explicitly closed before `lem:compression` (line 1399).
    These conventions must be reflected in the relevant definitions.
 
 ## Completed dependency work
@@ -264,13 +262,23 @@ algebras, and actual counterexamples to metric-decay coarse invariance. These
 now have explicit inventory entries; mathematical background assertions have
 not been dismissed as historical citations.
 
-The countable-approximation assertion at lines 174–176 now explicitly assumes
+The countable-approximation assertion at lines 175–177 now explicitly assumes
 infinite X. `uniformRoe_not_subset_closure_countable` proves it for every coarse
 structure, even when the countable family contains arbitrary ambient operators.
-The author authorized adding the remetrization qualification at line 922.
-`CoarseGraphUnion.exists_exponentialGrowth_metric` supplies precisely this claim;
-`singletonGraphUnion_growth_counterexample` verifies the later caveat that the
-original metric need not have exponential growth. Both prose items are verified.
+The revised manuscript removes the old graph-union growth caveat and special
+remetrization remark. Their dedicated proof modules have been removed. The new
+DGLY proposition instead supplies a degree-three graph embedding for every ULF
+metric space. Pulling back its graph metric along the injective root map gives
+exponential growth on the same set, with exactly the original coarse structure.
+This establishes the growth reduction without asserting invariance of concrete
+operator algebras under arbitrary nonbijective coarse equivalence.
+
+The introduction's reference to “all h” is read under the paper's explicit global
+convention (Section 2.1) that real-valued maps are coarse, consistently with
+Theorem `thm:roeentire`. The proof of Theorem B is implemented using the injective
+embedding's image. Suggested wording clarifications were sent to the author;
+the manuscript itself has not been edited for this update. These interpretations
+are recorded explicitly, rather than strengthening either formal statement.
 
 The positive prose obligations are now checked: `analyticOrbitSubalgebra_dense`
 proves general-flow analytic density for nonunital C*-algebras;
@@ -296,12 +304,34 @@ logarithmic metric strictly enlarges the exponential-decay algebra while keeping
 the same coarse structure and uniform local finiteness.
 
 
-## Final validation — 2026-09-28
+## Revised graph construction and Theorem B
 
-The ordinary audit and terminal completion audit pass, together with all 17 audit
-regression tests. All 1,325 inventory entries are verified; 1,287 distinct source
-declarations in 193 modules support 138 manuscript roots. No proof placeholders,
-project axioms or external mathematical assumptions are admitted. The only
-foundational axioms are `propext`, `Classical.choice` and `Quot.sound`.
+`exists_boundedDegree_coarseEmbedding` proves the cited DGLY Proposition 5.1
+inside the project. A countable cover of bounded relations by finite partial
+matchings is placed on rays indexed by X. Each vertex has at most two vertical
+neighbors and one matching neighbor. Every pair of roots is connected. A
+matching at level n gives a walk of length 4n+2; a walk of length k from a root
+has original displacement at most k². These estimates prove both coarse
+controls. The empty domain embeds in the one-vertex graph.
 
-Reviewed manuscript SHA256: `c98f4f45f7b9028824915228714a6fc7254dda7e10699cb206ebd5d9d5aa6c72`.
+`exists_exponentialGrowth_metric` restricts the graph metric to the roots.
+Degree-three ball counting bounds its volumes, and the two controls identify
+its controlled sets with the original ones. Consequently
+`uniformRoe_eq_entireAnalyticPoints` removes the growth assumption from the
+previous analytic lemma. `theoremB` has exactly the two revised equalities;
+`entireAnalyticPoints_eq_exponentialAnalyticPoints` supplies the new corollary.
+The merged definition `Def.AP.algebra.defi` is represented by both
+`entireAnalyticPoints` and `exponentialAnalyticPoints`.
+
+The two new Ewert–Meyer citations are historical attributions to instances of
+already checked continuity results. No external theorem is taken as an axiom.
+
+## Final validation — 2026-09-29
+
+The full build, all 17 audit regression tests, ordinary audit and terminal audit
+pass. All 1,328 inventory entries are verified. The dependency audit checks that
+all 1,288 source declarations in 194 modules support the 136 manuscript roots.
+Only `propext`, `Classical.choice` and `Quot.sound` occur as foundational axioms;
+there are no project axioms or proof placeholders.
+
+Reviewed manuscript SHA256: `2afdc5e2011fb9f96e73b4c9125c5f9a7e32cd3e122678d6221dc31082f1eab9`.

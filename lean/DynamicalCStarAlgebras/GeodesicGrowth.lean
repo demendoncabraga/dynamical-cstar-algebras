@@ -1,4 +1,4 @@
-import DynamicalCStarAlgebras.GraphUnionExponentialMetric
+import DynamicalCStarAlgebras.GraphSlicing
 
 noncomputable section
 open Classical

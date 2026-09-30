@@ -1,4 +1,4 @@
-import DynamicalCStarAlgebras.CayleyGrowth
+import DynamicalCStarAlgebras.TheoremB
 import DynamicalCStarAlgebras.DiscontinuousPreflow
 import DynamicalCStarAlgebras.EntourageOscillation
 import DynamicalCStarAlgebras.FejerTail
@@ -11,7 +11,6 @@ import DynamicalCStarAlgebras.NonmetrizableExample
 import DynamicalCStarAlgebras.PropertyAEquality
 import DynamicalCStarAlgebras.RegularityAlgebras
 import DynamicalCStarAlgebras.RoeCountability
-import DynamicalCStarAlgebras.SingletonGrowthCounterexample
 import DynamicalCStarAlgebras.StripDefinitions
 import DynamicalCStarAlgebras.VolumeEstimate
 

@@ -1,4 +1,5 @@
 import DynamicalCStarAlgebras.FrameNetUnionBound
+import DynamicalCStarAlgebras.ComponentOperators
 import Mathlib.Analysis.Normed.Lp.LpEquiv
 
 /-! Subspace and orthogonal-projection assembly for Li--Zhang--Zhu,

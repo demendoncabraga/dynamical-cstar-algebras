@@ -1,4 +1,4 @@
-import DynamicalCStarAlgebras.TheoremB
+import DynamicalCStarAlgebras.QuasiLocalCharacterization
 
 noncomputable section
 
